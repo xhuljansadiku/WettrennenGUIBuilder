@@ -5,10 +5,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 
 public class PictureClass {
-    private static String motorradPfad = "src/Pictures/motorrad.jpg";
-    private static String traktorPfad = "src/Pictures/traktor.jpg";
-    private static String rennautoPfad = "src/Pictures/rennauto.jpg";
-    private static String suvPfad = "src/Pictures/suv.jpg";
+    private static String motorradPfad = "Pictures/motorrad.jpg";
+    private static String traktorPfad = "Pictures/traktor.jpg";
+    private static String rennautoPfad = "Pictures/rennauto.jpg";
+    private static String suvPfad = "Pictures/suv.jpg";
 
     public static ImageIcon getImage(String fahrzeugtypen){
         String filepath = "";

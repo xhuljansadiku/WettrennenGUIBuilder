@@ -1,8 +1,7 @@
 package WettrennenV2;
 
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Scanner;
+
 
 public class Wettrennen {
     private ArrayList<Fahrzeug> teilnehmerListe = new ArrayList<>();
@@ -13,80 +12,23 @@ public class Wettrennen {
 
     private ArrayList<Zuschauer> zuschauerListe = new ArrayList<>();
 
-    public Wettrennen(){}
-
-    public void initializeRace(){
-        System.out.println("Wie lange soll das Rennen dauern?");
-        this.rennDauer = intEinlesen();
-
-        System.out.println("Wie viele Teilnehmer soll das Rennen haben?");
-        this.teilnehmerZahl = intEinlesen();
-
-        for(int i = 0; i < teilnehmerZahl; i++){
-            System.out.println("Bitte geben Sie das " + (i + 1)  + ".te Auto ein: ");
-            Fahrzeug auto = autoErstellen();
-
-            teilnehmerListe.add(auto);
-        }
-
-        startRace();
-
-        /*
-        Rennauto auto = new Rennauto();
-        for(int i = 0; i < teilnehmerListe.size(); i++){
-            Rennauto temp_auto = teilnehmerListe.get(i);
-            if(i == 0){
-                auto = temp_auto;
-            } else {
-                if(temp_auto.getStrecke() > auto.getStrecke()){
-                    auto = temp_auto;
-                }
-            }
-        }
-        */
-
-        sortWinner();
-
-        siegerehrung();
+    public Wettrennen() {
     }
 
-    public void raceInitializer(){
-        System.out.println("Wie lange soll das Rennen dauern?");
-        this.rennDauer = intEinlesen();
 
-        System.out.println("Wie viele Teilnehmer soll das Rennen haben?");
-        this.teilnehmerZahl = intEinlesen();
-
-        createFahrzeuge();
-
-        startRace();
-
-        sortWinner();
-
-        siegerehrung();
-    }
-
-    public void guiInitializer(int rennDauer, int teilnehmerZahl){
-        this.rennDauer = rennDauer;
-        this.teilnehmerZahl = teilnehmerZahl;
-
-        createFahrzeuge();
-
-    }
-
-    public void initializeGUI(int rennDauer, int teilnehmerZahl, String[] vehicle){
+    public void initializeGUI(int rennDauer, int teilnehmerZahl, String[] vehicle) {
         this.rennDauer = rennDauer;
         this.teilnehmerZahl = teilnehmerZahl;
 
         createVehicle(vehicle);
     }
 
-    public void createVehicle(String[] vehicle){
-        for(int i = 0; i < this.teilnehmerZahl; i++){
+    public void createVehicle(String[] vehicle) {
+        for (int i = 0; i < this.teilnehmerZahl; i++) {
             Fahrzeug fahrzeug = new Fahrzeug();
             String car = Zufallsgenerator.vehiclePicker(vehicle);
 
-            if(car.equals("Rennauto")){
+            if (car.equals("Rennauto")) {
                 fahrzeug = new Rennauto(
                         Zufallsgenerator.doubleGen(30, 90),
                         Zufallsgenerator.doubleGen(30, 90),
@@ -119,7 +61,7 @@ public class Wettrennen {
                         Zufallsgenerator.doubleGen(14, 95),
                         Zufallsgenerator.boolGen()
                 );
-            } else if(car.equals("Traktor")){
+            } else if (car.equals("Traktor")) {
                 fahrzeug = new Traktor(Zufallsgenerator.doubleGen(30, 90),
                         Zufallsgenerator.doubleGen(30, 90),
                         Zufallsgenerator.doubleGen(2.0, 8.9),
@@ -135,7 +77,7 @@ public class Wettrennen {
                         Zufallsgenerator.doubleGen(14, 95),
                         Zufallsgenerator.boolGen(),
                         Zufallsgenerator.doubleGen(500, 15000));
-            } else if(car.equals("Motorrad")){
+            } else if (car.equals("Motorrad")) {
                 fahrzeug = new Motorrad(
                         Zufallsgenerator.doubleGen(30, 90),
                         Zufallsgenerator.doubleGen(30, 90),
@@ -165,105 +107,12 @@ public class Wettrennen {
         }
     }
 
-    public void createFahrzeuge(){
-        for(int i = 0; i < this.teilnehmerZahl; i++){
-            Fahrzeug fahrzeug = new Fahrzeug();
-            String car = Zufallsgenerator.carPicker();
-
-            if(car.equals("Rennauto")){
-                fahrzeug = new Rennauto(
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(2.0, 8.9),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.kennzeichenGen(),
-                        Zufallsgenerator.colorGen(),
-                        Zufallsgenerator.stringGen(15),
-                        Zufallsgenerator.doubleGen(20, 140000),
-                        0.0,
-                        Zufallsgenerator.boolGen(),
-                        Zufallsgenerator.doubleGen(50, 250),
-                        Zufallsgenerator.doubleGen(14, 95),
-                        Zufallsgenerator.intGen(200, 500));
-            } else if (car.equals("SUV")) {
-                fahrzeug = new SUV(
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(2.0, 8.9),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.kennzeichenGen(),
-                        Zufallsgenerator.colorGen(),
-                        Zufallsgenerator.stringGen(15),
-                        Zufallsgenerator.doubleGen(20, 140000),
-                        0.0,
-                        Zufallsgenerator.boolGen(),
-                        Zufallsgenerator.doubleGen(50, 250),
-                        Zufallsgenerator.doubleGen(14, 95),
-                        Zufallsgenerator.boolGen()
-                );
-            } else if(car.equals("Traktor")){
-                fahrzeug = new Traktor(Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(2.0, 8.9),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.kennzeichenGen(),
-                        Zufallsgenerator.colorGen(),
-                        Zufallsgenerator.stringGen(15),
-                        Zufallsgenerator.doubleGen(20, 140000),
-                        0.0,
-                        Zufallsgenerator.boolGen(),
-                        Zufallsgenerator.doubleGen(50, 250),
-                        Zufallsgenerator.doubleGen(14, 95),
-                        Zufallsgenerator.boolGen(),
-                        Zufallsgenerator.doubleGen(500, 15000));
-            } else if(car.equals("Motorrad")){
-                fahrzeug = new Motorrad(
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(30, 90),
-                        Zufallsgenerator.doubleGen(2.0, 8.9),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.doubleGen(140, 350),
-                        Zufallsgenerator.kennzeichenGen(),
-                        Zufallsgenerator.colorGen(),
-                        Zufallsgenerator.stringGen(15),
-                        Zufallsgenerator.doubleGen(20, 140000),
-                        0.0,
-                        Zufallsgenerator.boolGen(),
-                        Zufallsgenerator.doubleGen(50, 250),
-                        Zufallsgenerator.doubleGen(14, 95),
-                        Zufallsgenerator.intGen(2, 3)
-                );
-            }
-
-            teilnehmerListe.add(fahrzeug);
-            /*
-            double tankvolumen, double tankinhalt, double vebrauch, double maxSpeed,
-            double currentSpeed, String kennzeichen, String color, String driver,
-            double strecke, double rennstrecke, boolean isFueling, double money,
-            double reifenProzent
-            */
-
-        }
-    }
-
-    public void siegerehrung(){
-        System.out.println("Siegerehrung");
-        int places = Math.min(this.teilnehmerListe.size(), 3);
-        for(int i = 0; i < places; i++){
-            Fahrzeug auto = this.teilnehmerListe.get(i);
-            System.out.println((i + 1) + ".Platz: ");
-            System.out.println(auto.toString());
-        }
-    }
 
     // Gibt eine Liste mit den besten 3 Fahrzeugen zurück
-    public ArrayList<Fahrzeug> top3(){
+    public ArrayList<Fahrzeug> top3() {
         ArrayList<Fahrzeug> top3Liste = new ArrayList<>();
 
-        if(teilnehmerListe.size() >= 3){
+        if (teilnehmerListe.size() >= 3) {
             top3Liste.add(teilnehmerListe.get(0));
             top3Liste.add(teilnehmerListe.get(1));
             top3Liste.add(teilnehmerListe.get(2));
@@ -272,143 +121,35 @@ public class Wettrennen {
         return top3Liste;
     }
 
-    public void sortWinner(){
+    public void sortWinner() {
         // Fehler war das umgedrehte < -Zeichen
         Fahrzeug temp;
-        int size = this.teilnehmerListe.size();
-        for(int i = 0; i < size; i++){
-            for (int j = 1; j < (size -1); j++){
-                if(this.teilnehmerListe.get(j - 1).getRennstrecke() < this.teilnehmerListe.get(j).getRennstrecke()){
-                    temp = this.teilnehmerListe.get(j - 1);
-                    this.teilnehmerListe.set(j -1, this.teilnehmerListe.get(j));
-                    this.teilnehmerListe.set(j, temp);
+        do {
+            int size = this.teilnehmerListe.size();
+            for (int i = 0; i < size; i++) {
+                for (int j = 1; j < (size - 1); j++) {
+                    if (this.teilnehmerListe.get(j - 1).getRennstrecke() < this.teilnehmerListe.get(j).getRennstrecke()) {
+                        temp = this.teilnehmerListe.get(j - 1);
+                        this.teilnehmerListe.set(j - 1, this.teilnehmerListe.get(j));
+                        this.teilnehmerListe.set(j, temp);
+                    }
                 }
             }
-        }
+        } while (this.teilnehmerListe.get(0).getRennstrecke() < this.teilnehmerListe.get(1).getRennstrecke() || this.teilnehmerListe.get(1).getRennstrecke() < this.teilnehmerListe.get(2).getRennstrecke());
+
     }
 
-    public void raceStart(){
-        for (int j = 0; j < this.rennDauer; j++){
-            for(int i = 0; i < this.teilnehmerListe.size(); i++){
+    public void raceStart() {
+        for (int j = 0; j < this.rennDauer; j++) {
+            for (int i = 0; i < this.teilnehmerListe.size(); i++) {
                 Fahrzeug fahrzeug = teilnehmerListe.get(i);
                 fahrzeug.drive(1);
             }
         }
     }
-
-    public void startRace(){
-        System.out.println("-----Beginne Countdown-----");
-        for(int i = 10; i >= 0; i--){
-            if(i != 0){
-                System.out.println("\t\t " + i);
-            }
-        }
-
-        for(int j = 0; j < this.rennDauer; j++){
-            System.out.println("Zeitvorgang: " + j);
-
-            for(int i = 0; i < teilnehmerListe.size(); i++){
-                Fahrzeug auto = teilnehmerListe.get(i);
-                auto.drive(1);
-                System.out.println(auto.kennzeichenStrecke());
-            }
-        }
-    }
-
-    public Fahrzeug autoErstellen(){
-        boolean isValid = false;
-        Fahrzeug auto;
-
-        do{
-            System.out.println("Bitte geben Sie das maximale Tankvolumen ein: ");
-            double tankvolumen = doubleEinlesen();
-            System.out.println("Bitte geben Sie den aktuellen Tankinhalt ein: ");
-            double tankinhalt = doubleEinlesen();
-            System.out.println("Bitte geben Sie den Verbrauch des Autos ein: ");
-            double verbrauch = doubleEinlesen();
-            System.out.println("Bitte geben Sie die Höchstgeschwindigkeit des Autos ein: ");
-            double maxSpeed = doubleEinlesen();
-            System.out.println("Bitte geben Sie die aktuelle Geschwindigkeit des Autos ein: ");
-            double currentSpeed = doubleEinlesen();
-            System.out.println("Bitte geben Sie das Kennzeichen des Autos ein: ");
-            String kennzeichen = stringEinlesen();
-            System.out.println("Bitte geben Sie die Farbe des Autos ein: ");
-            String color = stringEinlesen();
-            System.out.println("Bitte geben Sie den Fahrer des Autos ein: ");
-            String driver = stringEinlesen();
-            System.out.println("Bitte geben Sie den Kilometerstand des Autos ein: ");
-            double strecke = doubleEinlesen();
-            System.out.println("Bitte geben Sie das verfügbare Guthaben für das Fahrzeug ein: ");
-            double money = doubleEinlesen();
-            System.out.println("Bitte geben Sie den Zustand der Reifen in Prozent für das Fahrzeug ein: ");
-            double reifenProzent = doubleEinlesen();
-
-            auto = new Fahrzeug(tankvolumen, tankinhalt, verbrauch, maxSpeed, currentSpeed,
-                    kennzeichen, color, driver, strecke, money, reifenProzent);
-
-            System.out.println(auto);
-
-            System.out.println("Möchten Sie dieses Auto erstellen? [Y/N]");
-            String abfrage = stringEinlesen();
-            if (abfrage.equals("Y") || abfrage.equals("y")){
-                isValid = true;
-            }
-
-        } while (!isValid);
-
-        return auto;
-    }
-
-    public int intEinlesen(){
-        int zahl = 0;
-        boolean isZahl = false;
-
-        Scanner scanner = new Scanner(System.in);
-        while(!isZahl){
-            try{
-                zahl = scanner.nextInt();
-                isZahl = true;
-            } catch (InputMismatchException e){
-                System.out.println("Bitte geben Sie eine Zahl ein, die maximal 2 Milliarden ist.");
-                scanner.next();
-            }
-
-            if(zahl < 0){
-                isZahl = false;
-                System.out.println("Bitte geben Sie eine positive Zahl ein.");
-            }
-        }
-
-        return zahl;
-    }
-
-    public double doubleEinlesen(){
-        double zahl = 0;
-        boolean isZahl = false;
-
-        Scanner scanner = new Scanner(System.in);
-        while(!isZahl){
-            try{
-                zahl = scanner.nextDouble();
-                isZahl = true;
-            } catch (InputMismatchException e){
-                System.out.println("Bitte geben Sie eine Zahl ein");
-                scanner.next();
-            }
-
-            if(zahl < 0){
-                isZahl = false;
-                System.out.println("Bitte geben Sie eine positive Zahl ein.");
-            }
-        }
-
-        return zahl;
-    }
-
-    public String stringEinlesen(){
-        Scanner scanner = new Scanner(System.in);
-        String entered = scanner.nextLine();
-        return entered;
-    }
 }
+
+
+
+
 

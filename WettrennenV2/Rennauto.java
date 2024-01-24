@@ -74,7 +74,7 @@ public class Rennauto extends Fahrzeug{
             tanken();
         } else if (this.getReifenProzent() <= 0.0) {
             this.setReifenProzent(100.0);
-            System.out.println("Reifenwechsel");
+            //System.out.println("Reifenwechsel");
         }
     }
 

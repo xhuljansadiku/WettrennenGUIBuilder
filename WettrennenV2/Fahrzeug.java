@@ -270,7 +270,7 @@ public class Fahrzeug {
             tanken();
         } else if (reifenProzent <= 0.0) {
             this.reifenProzent = 100.0;
-            System.out.println("Reifenwechsel");
+            //System.out.println("Reifenwechsel");
         }
     }
 
@@ -325,7 +325,7 @@ public class Fahrzeug {
             } else {
                 this.tankinhalt += tankrate;
             }
-            System.out.println("Tankvorgang");
+            //System.out.println("Tankvorgang");
             this.money -= pay;
         }
 

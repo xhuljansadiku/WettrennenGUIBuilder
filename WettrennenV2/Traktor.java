@@ -70,7 +70,7 @@ public class Traktor extends Fahrzeug{
     // 1 Test, ob Geschwindigkeit und Ausgabe stimmen
     public void protestieren(){
         this.setCurrentSpeed(0);
-        System.out.println("WIR PROTESTIEREN!!!!!!");
+        //System.out.println("WIR PROTESTIEREN!!!!!!");
     }
 
     // 1 Test, ob Ausgabe mit den entsprechenden Objektenwerten stimmt

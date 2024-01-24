@@ -34,18 +34,4 @@ public class Motorrad extends Fahrzeug{
         this.wheelCount = wheelCount;
     }
 
-    public void greet(){
-        System.out.println(this.getKennzeichen() + "hebt die Hand zum Gruße");
-    }
-
-    public String toString(){
-        String autoinformation = "Das Auto mit dem Kennzeichen " + getKennzeichen() + " hat einen " +
-                "Kilometerstand von " + round(this.getStrecke(), 2) + " km, fährt derzeit " +
-                getCurrentSpeed() + " km/h\n schnell und verbraucht dabei "+ getVebrauch() +
-                " l/100km und hat noch " + round(getTankinhalt(), 2) + " l im Tank.\nDerzeitiger Fahrer ist: " +
-                getDriver() + ", das Auto hat die Farbe: " + getColor() + " und im aktuellen Rennen: " +
-                getRennstrecke() + " km zurück gelegt \n" +
-                "Ich bin ein Motorrad.";
-        return autoinformation;
-    }
 }
