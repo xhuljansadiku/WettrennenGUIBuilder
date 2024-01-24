@@ -22,7 +22,7 @@ Gebt nicht nur die Liste mit den Gesamtsiegern aus sondern auch für jede beteil
 
 
 
-New Tasks.
+New Tasks.  24/01/2024
 
 
 Probiert euch mit dem Wissen von heute an den Zusatzaufgaben von gestern. 
