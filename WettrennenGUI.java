@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.ImageObserver;
+import java.text.AttributedCharacterIterator;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -19,24 +21,15 @@ public class WettrennenGUI {
     JLabel platzierungsLabel = new JLabel("Platzierung");
 
     JPanel vehiclePanel = new JPanel();
+    JPanel treppchen = new JPanel();
+    PlatzierungsPanel firstPlace = new PlatzierungsPanel();
+    PlatzierungsPanel secondPlace = new PlatzierungsPanel();
+    PlatzierungsPanel thirdPlace = new PlatzierungsPanel();
 
-    CheckBoxPanel suv_panel = new CheckBoxPanel("SUV", "src/Pictures/suv.jpg");
-    CheckBoxPanel traktor_panel = new CheckBoxPanel("Traktor", "src/Pictures/traktor.jpg");
-    CheckBoxPanel motorrad_panel = new CheckBoxPanel("Motorrad", "src/Pictures/motorrad.jpg");
-    CheckBoxPanel rennauto_panel = new CheckBoxPanel("Rennauto", "src/Pictures/rennauto.jpg");
-
-
-
-    JPanel platzPanel = new JPanel();
-
-    CheckBoxPanel platz1 = new CheckBoxPanel("SUV", "src/Pictures/suv.jpg");
-    CheckBoxPanel platz2 = new CheckBoxPanel("Traktor", "src/Pictures/traktor.jpg");
-    CheckBoxPanel platz3 = new CheckBoxPanel("Motorrad", "src/Pictures/motorrad.jpg");
-    CheckBoxPanel platz4 = new CheckBoxPanel("Rennauto", "src/Pictures/rennauto.jpg");
-
-
-
-
+    CheckBoxPanel suv_panel = new CheckBoxPanel("SUV");
+    CheckBoxPanel traktor_panel = new CheckBoxPanel("Traktor");
+    CheckBoxPanel motorrad_panel = new CheckBoxPanel("Motorrad");
+    CheckBoxPanel rennauto_panel = new CheckBoxPanel("Rennauto");
 
     public WettrennenGUI(){}
 
@@ -54,81 +47,50 @@ public class WettrennenGUI {
         vehiclePanel.add(motorrad_panel);
         vehiclePanel.add(rennauto_panel);
 
-
-        platzPanel.setLayout(new BoxLayout(platzPanel,BoxLayout.Y_AXIS));
-        platzPanel.add(platz1);
-        platzPanel.add(platz2);
-        platzPanel.add(platz3);
-        platzPanel.add(platz4);
-
-
         gbc.gridx = 0;
         gbc.gridy = 0;
         // ermöglicht die Überdeckung von 3 Spalten
-        gbc.gridwidth = 8;
+        gbc.gridwidth = 3;
         panel.add(vehiclePanel, gbc);
 
         // setzt für alle nachfolgenden Elemente die Spaltenbreite wieder auf 1
         gbc.gridwidth = 1;
-        gbc.gridx = 2;
+        gbc.gridx = 0;
         gbc.gridy = 1;
         panel.add(anzahlRunden, gbc);
 
-        gbc.gridx = 3;
+        gbc.gridx = 1;
         gbc.gridy = 1;
         panel.add(rundenTF, gbc);
         rundenTF.setPreferredSize(new Dimension(100, 30));
 
-        gbc.gridx = 2;
+        gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(anzahlTeilnehmer, gbc);
 
-        gbc.gridx = 3;
+        gbc.gridx = 1;
         gbc.gridy = 2;
         panel.add(teilnehmerTF, gbc);
         teilnehmerTF.setPreferredSize(new Dimension(100, 30));
 
-
-
-        gbc.gridx = 7;
-        gbc.gridy = 8;
-        panel.add(startButton, gbc);
-
         gbc.gridx = 2;
         gbc.gridy = 4;
-        panel.add(platzierungsLabel, gbc);
+        panel.add(startButton, gbc);
 
-        gbc.gridx = 3;
-        gbc.gridy = 4;
-        // ermöglicht die Überdeckung von 3 Spalten
-        gbc.gridwidth = 3;
-        panel.add(platz1, gbc);
+        treppchen.setLayout(new BoxLayout(treppchen, BoxLayout.Y_AXIS));
+        // treppchen.add(platzierungsLabel);
+        treppchen.add(firstPlace);
+        treppchen.add(secondPlace);
+        treppchen.add(thirdPlace);
 
-        gbc.gridx = 3;
-        gbc.gridy = 5;
-        // ermöglicht die Überdeckung von 3 Spalten
-        gbc.gridwidth = 3;
-        panel.add(platz2, gbc);
-
-        gbc.gridx = 3;
-        gbc.gridy = 6;
-        // ermöglicht die Überdeckung von 3 Spalten
-        gbc.gridwidth = 3;
-        panel.add(platz3, gbc);
-
-        gbc.gridx = 3;
-        gbc.gridy = 7;
-        // ermöglicht die Überdeckung von 3 Spalten
-        gbc.gridwidth = 3;
-        panel.add(platz4, gbc);
-
-
-
+        gbc.gridx = 1;
+        gbc.gridy = 3;
+        panel.add(treppchen, gbc);
 
         frame.add(panel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        frame.setSize(1200, 800);
+        frame.setSize(800, 600);
         frame.setVisible(true);
     }
 
@@ -196,8 +158,26 @@ public class WettrennenGUI {
                 // ToDone: Wettrennen starten
                 wettrennen.raceStart();
 
+                wettrennen.sortWinner();
+
                 ArrayList<Fahrzeug> top3Liste = wettrennen.top3();
                 // ToDone: Platzierung aus dem Rennen lesen
+                firstPlace = new PlatzierungsPanel("1. Platz", top3Liste.get(0));
+                secondPlace = new PlatzierungsPanel("2. Platz", top3Liste.get(1));
+                thirdPlace = new PlatzierungsPanel(3, top3Liste.get(2));
+                // ToDone: Löschen alter Gewinner
+                // Löschen ALLER bisherigen Komponenten von treppchen
+                treppchen.removeAll();
+
+                // Einbinden der neuen Gewinner
+                treppchen.add(firstPlace);
+                treppchen.add(secondPlace);
+                treppchen.add(thirdPlace);
+
+                // Neuladen des Panels
+                treppchen.revalidate();
+                treppchen.repaint();
+
 
                 platzierungsLabel.setText("<html>Platzierung: <br/> " +
                         "1.Platz: " + top3Liste.get(0).getKennzeichen() + " : " + top3Liste.get(0).getRennstrecke() + " <br/> " +

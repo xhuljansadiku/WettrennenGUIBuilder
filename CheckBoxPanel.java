@@ -34,4 +34,16 @@ public class CheckBoxPanel extends JPanel {
 
         this.add(panel);
     }
+
+    public CheckBoxPanel(String fahrzeugtypen){
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+        pictureLabel = new JLabel(PictureClass.getImage(fahrzeugtypen));
+
+        panel.add(pictureLabel);
+        checkBox = new JCheckBox(fahrzeugtypen, false);
+        panel.add(checkBox);
+
+        this.add(panel);
+    }
 }
