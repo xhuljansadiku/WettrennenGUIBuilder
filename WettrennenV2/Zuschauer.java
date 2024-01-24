@@ -60,9 +60,6 @@ public class Zuschauer {
         this.sichtbereich = sichtbereich;
     }
 
-    public void jubeln(Fahrzeug fahrzeug){
-        if(fahrzeug instanceof Motorrad && this.FahrzeugFan.equals("Motorrad")){
-            System.out.println("Motorräder sind die beste Fahrzeugklasse");
-        }
-    }
+
+
 }

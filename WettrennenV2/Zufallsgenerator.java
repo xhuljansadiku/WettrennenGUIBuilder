@@ -61,4 +61,5 @@ public class Zufallsgenerator {
             System.out.println(i + " : " + carPicker());
         }
     }
+
 }

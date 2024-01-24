@@ -34,9 +34,7 @@ public class Motorrad extends Fahrzeug{
         this.wheelCount = wheelCount;
     }
 
-    public void greet(){
-        System.out.println(this.getKennzeichen() + "hebt die Hand zum Gruße");
-    }
+
 
     public String toString(){
         String autoinformation = "Das Auto mit dem Kennzeichen " + getKennzeichen() + " hat einen " +
@@ -48,4 +46,5 @@ public class Motorrad extends Fahrzeug{
                 "Ich bin ein Motorrad.";
         return autoinformation;
     }
+
 }

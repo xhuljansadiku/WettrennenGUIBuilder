@@ -35,4 +35,5 @@ public class VIPZuschauer extends Zuschauer{
     public void setMassagestuhl(boolean massagestuhl) {
         this.massagestuhl = massagestuhl;
     }
+
 }

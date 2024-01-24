@@ -1,6 +1,6 @@
 package WettrennenV2;
 
-public class SUV extends Fahrzeug{
+public class SUV extends Fahrzeug {
     // Attribut
     private boolean sitzheizung;
 
@@ -37,8 +37,8 @@ public class SUV extends Fahrzeug{
         this.sitzheizung = sitzheizung;
     }
 
-    public void changeSitzheizung(){
-        if(this.isSitzheizung()){
+    public void changeSitzheizung() {
+        if (this.isSitzheizung()) {
             this.setSitzheizung(false);
             this.setVebrauch(this.getVebrauch() / 1.05);
         } else {
@@ -47,10 +47,10 @@ public class SUV extends Fahrzeug{
         }
     }
 
-    public void bremsen(){
-        if(this.getCurrentSpeed() > 0.0){
+    public void bremsen() {
+        if (this.getCurrentSpeed() > 0.0) {
             this.setCurrentSpeed(this.getCurrentSpeed() * 0.95);
-            this.setVebrauch(this.getVebrauch()*0.99);
+            this.setVebrauch(this.getVebrauch() * 0.99);
         } else {
             this.setCurrentSpeed(this.getMaxSpeed() / 2);
             this.setVebrauch(this.getTankvolumen() * 0.0247);
@@ -80,7 +80,7 @@ public class SUV extends Fahrzeug{
 
             double reifenAbnutzung = 1.125;
 
-            if(this.getReifenProzent() - reifenAbnutzung < 0.0){
+            if (this.getReifenProzent() - reifenAbnutzung < 0.0) {
                 this.setReifenProzent(0.0);
             } else {
                 this.setReifenProzent(this.getReifenProzent() - reifenAbnutzung);
@@ -89,18 +89,10 @@ public class SUV extends Fahrzeug{
             tanken();
         } else if (this.getReifenProzent() <= 0.0) {
             this.setReifenProzent(100.0);
-            System.out.println("Reifenwechsel");
+
         }
+
+
     }
 
-    public String toString(){
-        String autoinformation = "Das Auto mit dem Kennzeichen " + getKennzeichen() + " hat einen " +
-                "Kilometerstand von " + round(this.getStrecke(), 2) + " km, fährt derzeit " +
-                getCurrentSpeed() + " km/h\n schnell und verbraucht dabei "+ getVebrauch() +
-                " l/100km und hat noch " + round(getTankinhalt(), 2) + " l im Tank.\nDerzeitiger Fahrer ist: " +
-                getDriver() + ", das Auto hat die Farbe: " + getColor() + " und im aktuellen Rennen: " +
-                getRennstrecke() + " km zurück gelegt \n" +
-                "Ich bin ein SUV.";
-        return autoinformation;
-    }
 }

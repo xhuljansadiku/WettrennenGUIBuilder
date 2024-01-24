@@ -195,7 +195,7 @@ public class Fahrzeug {
         return isFueling;
     }
 
-    // 2 Test: Positiv & Negativ
+
     public void setFueling(boolean fueling) {
         isFueling = fueling;
     }
@@ -205,8 +205,7 @@ public class Fahrzeug {
         return reifenProzent;
     }
 
-    // 2 Test: Positiv & Negativ
-    // (Grenzen , wenn reifenProzent 0 <= reifenProzent <= 100)
+
     public void setReifenProzent(double reifenProzent) {
         if (reifenProzent < 0.0){
             this.reifenProzent = 0.0;
@@ -217,13 +216,12 @@ public class Fahrzeug {
         }
     }
 
-    // 1 Test: Korrekt angelegt
+
     public double getMoney() {
         return money;
     }
 
-    // 2 Test: Positiv & Negativ
-    // (Grenzen , wenn money 0 <= money <= MAX.double)
+
     public void setMoney(double money) {
         if(money < 0.0){
             this.money = 0.0;
@@ -232,14 +230,7 @@ public class Fahrzeug {
         }
     }
 
-    // Methoden
-    // 3 Test: (zeit < 0 || zeit == 0 || zeit > 0)
-    // 2 Test: isFueling = true / isFueling = false
-    // 2 Test: reifenProzent <= 0.0 && 0 < reifenProzent
-    // 2 Test: tankinhalt <= 0 && tankinhalt > 0
-    // 2 Test: driver == null && driver != null
-    // 2 Test: tankinhalt < verbrauch && tankinhalt > verbrauch
-    // 2 Test: reifenProzent > 1.125 && reifenProzent <= 1.125
+
     public void drive(int zeit) {
         if (this.tankinhalt > 0.0 && this.driver != null && zeit > 0.0 && !isFueling() && reifenProzent > 0.0) {
             // km = km/h * h / 60 min
@@ -270,7 +261,7 @@ public class Fahrzeug {
             tanken();
         } else if (reifenProzent <= 0.0) {
             this.reifenProzent = 100.0;
-            System.out.println("Reifenwechsel");
+
         }
     }
 
@@ -311,7 +302,7 @@ public class Fahrzeug {
 
 
         if(this.money == 0.0){
-            System.out.println("Ich habe kein Geld mehr");
+
         } else {
             if(pay > this.money) {
                 tankrate = this.money / pricePerLiter;
@@ -325,7 +316,7 @@ public class Fahrzeug {
             } else {
                 this.tankinhalt += tankrate;
             }
-            System.out.println("Tankvorgang");
+
             this.money -= pay;
         }
 
