@@ -6,8 +6,11 @@ public class Main {
         helloWorld.main();
         */
 
-        WettrennenGUI wettrennenGUI = new WettrennenGUI();
+        //WettrennenGUI wettrennenGUI = new WettrennenGUI();
 
-        wettrennenGUI.main();
+        //wettrennenGUI.main();
+
+        Teilnehmerliste teilnehmerliste = new Teilnehmerliste();
+        teilnehmerliste.main();
     }
 }
