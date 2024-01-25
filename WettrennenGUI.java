@@ -16,6 +16,7 @@ public class WettrennenGUI {
     JTextField teilnehmerTF = new JTextField();
     JLabel anzahlRunden = new JLabel("Anzahl der Runden");
     JTextField rundenTF = new JTextField();
+    JButton listenanzeiger = new JButton("Anzeige aller Teilnehmer");
     JButton startButton = new JButton("Starte Rennen");
 
     JLabel platzierungsLabel = new JLabel("Platzierung");
@@ -77,6 +78,10 @@ public class WettrennenGUI {
         gbc.gridy = 4;
         panel.add(startButton, gbc);
 
+        gbc.gridx = 2;
+        gbc.gridy = 5;
+        panel.add(listenanzeiger, gbc);
+
         treppchen.setLayout(new BoxLayout(treppchen, BoxLayout.Y_AXIS));
         // treppchen.add(platzierungsLabel);
         treppchen.add(firstPlace);
@@ -105,41 +110,42 @@ public class WettrennenGUI {
     }
 
     private void setButtonListener(){
+        Wettrennen wettrennen = new Wettrennen();
         ActionListener startListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int rundenZahl = 0;
-                try{
+                try {
                     rundenZahl = Integer.parseInt(rundenTF.getText());
-                } catch (Exception exception){
+                } catch (Exception exception) {
                     rundenZahl = 6;
                 }
 
                 int teilnehmerZahl = 0;
-                try{
+                try {
                     teilnehmerZahl = Integer.parseInt(teilnehmerTF.getText());
-                } catch (Exception exception){
+                } catch (Exception exception) {
                     teilnehmerZahl = 10;
                 }
 
                 ArrayList<String> vehicleList = new ArrayList<>();
-                if(traktor_panel.checkBox.isSelected()){
+                if (traktor_panel.checkBox.isSelected()) {
                     vehicleList.add("Traktor");
                 }
 
-                if(suv_panel.checkBox.isSelected()){
+                if (suv_panel.checkBox.isSelected()) {
                     vehicleList.add("SUV");
                 }
 
-                if(rennauto_panel.checkBox.isSelected()){
+                if (rennauto_panel.checkBox.isSelected()) {
                     vehicleList.add("Rennauto");
                 }
 
-                if(motorrad_panel.checkBox.isSelected()){
+                if (motorrad_panel.checkBox.isSelected()) {
                     vehicleList.add("Motorrad");
                 }
 
-                if(vehicleList.size() == 0){
+                if (vehicleList.size() == 0) {
                     Collections.addAll(vehicleList, "Rennauto", "SUV", "Traktor", "Motorrad");
                 }
 
@@ -147,7 +153,8 @@ public class WettrennenGUI {
 
 
                 // ToDone: Wettrennen initialisieren
-                Wettrennen wettrennen = new Wettrennen();
+
+
                 wettrennen.initializeGUI(rundenZahl, teilnehmerZahl, vehicleArray);
                 // wettrennen.guiInitializer(rundenZahl, teilnehmerZahl);
                 /*
@@ -159,6 +166,7 @@ public class WettrennenGUI {
                 wettrennen.raceStart();
 
                 wettrennen.sortWinner();
+
 
                 ArrayList<Fahrzeug> top3Liste = wettrennen.top3();
                 // ToDone: Platzierung aus dem Rennen lesen
@@ -181,11 +189,40 @@ public class WettrennenGUI {
 
                 platzierungsLabel.setText("<html>Platzierung: <br/> " +
                         "1.Platz: " + top3Liste.get(0).getKennzeichen() + " : " + top3Liste.get(0).getRennstrecke() + " <br/> " +
-                        "2.Platz: " + top3Liste.get(1).getKennzeichen() + " : " + top3Liste.get(1).getRennstrecke()+ " <br/> " +
-                        "3.Platz: " + top3Liste.get(2).getKennzeichen() + " : " + top3Liste.get(2).getRennstrecke()+ " </html>");
+                        "2.Platz: " + top3Liste.get(1).getKennzeichen() + " : " + top3Liste.get(1).getRennstrecke() + " <br/> " +
+                        "3.Platz: " + top3Liste.get(2).getKennzeichen() + " : " + top3Liste.get(2).getRennstrecke() + " </html>");
 
             }
         };
+        ActionListener listenAnzeiger = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                Teilnehmerliste teilnehmerlistanzeigen = new Teilnehmerliste();
+                teilnehmerlistanzeigen.createAndShowTeilnehmerliste();
+                teilnehmerlistanzeigen.getlist(wettrennen.listeübergabe());
+                teilnehmerlistanzeigen.showlist();
+                if (traktor_panel.checkBox.isSelected()) {
+                    teilnehmerlistanzeigen.traktorliste();
+                    teilnehmerlistanzeigen.showTraktor();
+                }
+
+                if (suv_panel.checkBox.isSelected()) {
+                    teilnehmerlistanzeigen.suvliste();
+                    teilnehmerlistanzeigen.showSUV();
+                }
+
+                if (rennauto_panel.checkBox.isSelected()) {
+                    teilnehmerlistanzeigen.rennautoliste();
+                    teilnehmerlistanzeigen.showrennauto();
+                }
+
+                if (motorrad_panel.checkBox.isSelected()) {
+                    teilnehmerlistanzeigen.motorradliste();
+                    teilnehmerlistanzeigen.showMotorrad();
+                }
+            }
+        };
+        listenanzeiger.addActionListener(listenAnzeiger);
         startButton.addActionListener(startListener);
 
     }

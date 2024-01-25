@@ -27,7 +27,7 @@ public class PlatzierungsPanel extends Panel {
                 fahrzeug.getMoney() + " Euro<br/>" +
                 fahrzeug.getColor() + "</html>";
         this.fahrzeuginfos.setText(fahrzeuginformationen);
-        ImageIcon icon = PictureClass.getImage(getType(fahrzeug)); // Methodenaufruf um Bild zu erhalten
+        ImageIcon icon = Pictureclass.getImage(getType(fahrzeug)); // Methodenaufruf um Bild zu erhalten
         fahrzeugbild = new JLabel(icon);
 
         panel.add(this.platz);
@@ -46,7 +46,7 @@ public class PlatzierungsPanel extends Panel {
                 fahrzeug.getMoney() + " Euro<br/>" +
                 fahrzeug.getColor() + "</html>";
         this.fahrzeuginfos.setText(fahrzeuginformationen);
-        ImageIcon icon = PictureClass.getImage(getType(fahrzeug)); // Methodenaufruf um Bild zu erhalten
+        ImageIcon icon = Pictureclass.getImage(getType(fahrzeug)); // Methodenaufruf um Bild zu erhalten
         fahrzeugbild = new JLabel(icon);
 
         panel.add(this.platz);
@@ -72,4 +72,5 @@ public class PlatzierungsPanel extends Panel {
 
         return type;
     }
+
 }
