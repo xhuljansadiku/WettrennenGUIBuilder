@@ -29,9 +29,12 @@ Probiert euch mit dem Wissen von heute an den Zusatzaufgaben von gestern.
 
 - Nehmt also alle Konsolenausgaben aus dem Programm raus.
 
-- Gebt eine Platzierung abhängig von der Fahrzeugklasse zusätzlich aus. Also es soll eine Gesamtplatzierung angezeigt werden, aber auch eine für die einzelnen Fahrzeugklassen. 
-
+- Gebt eine Platzierung abhängig von der Fahrzeugklasse zusätzlich aus. Also es soll eine Gesamtplatzierung angezeigt werden, aber auch eine für die einzelnen Fahrzeugklassen.
 
 Zusatzaufgabe: 
 - Fügt eine weitere Fahrzeugklasse hinzu. Die auch komplett eingebunden wird und ausgewählt werden kann.
 
+
+
+
+ToDo: Add scroll in Results in Result Liste.
